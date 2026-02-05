@@ -1,5 +1,16 @@
--- 사용자 계정 생성 
-create user 'kdh'@'localhost' identified by '123';
+CREATE USER 'todo_user'@'localhost'
+IDENTIFIED BY 'ChangeThisPassword!';
 
--- 사용자 권한 부여
-GRANT ALL PRIVILEGES ON todo_list.* TO 'kdh'@'localhost';
+CREATE USER 'todo_user'@'127.0.0.1'
+IDENTIFIED BY 'ChangeThisPassword!';
+
+GRANT ALL PRIVILEGES
+ON todo_list.*
+TO 'todo_user'@'localhost';
+
+GRANT ALL PRIVILEGES
+ON todo_list.*
+TO 'todo_user'@'127.0.0.1';
+
+FLUSH PRIVILEGES;
+SHOW GRANTS FOR 'todo_user'@'localhost';
