@@ -32,27 +32,53 @@ Flask 기반 백엔드 구조와 MySQL DB 연동을 연습하기 위한 미니 �
 ```
 todo-list-flask/
 ├─ app/
-│  ├─ repositories/        # DB 접근 계층 (SQL)
-│  │   └─ todo_repository.py
-│  ├─ services/            # 비즈니스 로직
-│  │   └─ todo_service.py
-│  ├─ routes/              # URL 라우팅 (Blueprint)
-│  │   ├─ auth_routes.py
-│  │   └─ todo_routes.py
-│  ├─ templates/           # HTML 템플릿
-│  ├─ static/              # CSS / JS
-│  ├─ db.py                # DB 연결
-│  ├─ config.py            # 설정
-│  └─ __init__.py          # create_app()
+│  ├─ __init__.py                 # create_app(), Blueprint 등록
+│  ├─ config.py                   # 환경변수 로드/설정(Config)
+│  ├─ db.py                       # MySQL 연결 함수(get_conn)
+│  │
+│  ├─ routes/
+│  │  ├─ __init__.py             # Blueprint import/export
+│  │  ├─ auth_routes.py          # /login, /logout, (선택)/signup
+│  │  └─ todo_routes.py          # /dashboard, /todos CRUD
+│  │
+│  ├─ services/
+│  │  ├─ __init__.py
+│  │  ├─ auth_service.py         # 로그인 검증/세션 처리
+│  │  └─ todo_service.py         # ToDo 비즈니스 로직(권한/검증)
+│  │
+│  ├─ repositories/
+│  │  ├─ __init__.py
+│  │  ├─ member_repository.py    # members 테이블 SQL
+│  │  └─ todo_repository.py      # todos 테이블 SQL
+│  │
+│  ├─ templates/
+│  │  ├─ base.html               # 공통 레이아웃(사이드바/상단바)
+│  │  ├─ auth/
+│  │  │  ├─ login.html
+│  │  │  └─ signup.html          # (선택)
+│  │  └─ todo/
+│  │     ├─ dashboard.html       # 캘린더+요약+리스트
+│  │     ├─ list.html            # 전체/필터 리스트
+│  │     └─ edit.html            # 수정 화면(선택)
+│  │
+│  └─ static/
+│     ├─ css/
+│     │  └─ style.css
+│     └─ img/                    # (선택) 로고/아이콘
 │
 ├─ sql/
-│  ├─ 01_create_tables.sql
-│  └─ 02_create_user.sql
+│  ├─ 01_schema.sql              # DB/테이블 생성
+│  └─ 02_user_grants.sql         # 전용 유저 생성/권한
 │
-├─ run.py                  # 서버 실행
-├─ requirements.txt
-├─ .env.example
-└─ README.md
+├─ tests/                         # (선택) 나중에 테스트 추가
+│  └─ test_smoke.py
+│
+├─ .env.example                   # 환경변수 템플릿(깃에 올라감)
+├─ .gitignore                     # .env/.venv/__pycache__ 제외
+├─ requirements.txt               # pip 목록
+├─ run.py                         # 실행 엔트리포인트
+└─ README.md                      # 설명서
+
 ```
 
 ---
