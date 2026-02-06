@@ -38,8 +38,8 @@ todo-list-flask/
 │  │
 │  ├─ routes/
 │  │  ├─ __init__.py             # Blueprint import/export
-│  │  ├─ auth_routes.py          # /login, /logout, (선택)/signup
-│  │  └─ todo_routes.py          # /dashboard, /todos CRUD
+│  │  ├─ auth_routes.py          # /login /logout/signup
+│  │  └─ todo_routes.py          # /dashboard /todos CRUD
 │  │
 │  ├─ services/
 │  │  ├─ __init__.py
