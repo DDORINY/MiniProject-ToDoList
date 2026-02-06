@@ -55,7 +55,7 @@ todo-list-flask/
 │  │  ├─ base.html               # 공통 레이아웃(사이드바/상단바)
 │  │  ├─ auth/
 │  │  │  ├─ login.html
-│  │  │  └─ signup.html          # (선택)
+│  │  │  └─ signup.html          
 │  │  └─ todo/
 │  │     ├─ dashboard.html       # 캘린더+요약+리스트
 │  │     ├─ list.html            # 전체/필터 리스트
@@ -64,14 +64,11 @@ todo-list-flask/
 │  └─ static/
 │     ├─ css/
 │     │  └─ style.css
-│     └─ img/                    # (선택) 로고/아이콘
+│     └─ img/                    # 로고/아이콘
 │
 ├─ sql/
 │  ├─ 01_schema.sql              # DB/테이블 생성
 │  └─ 02_user_grants.sql         # 전용 유저 생성/권한
-│
-├─ tests/                         # (선택) 나중에 테스트 추가
-│  └─ test_smoke.py
 │
 ├─ .env.example                   # 환경변수 템플릿(깃에 올라감)
 ├─ .gitignore                     # .env/.venv/__pycache__ 제외
