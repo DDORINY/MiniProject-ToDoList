@@ -1,0 +1,15 @@
+.todo-done {
+  opacity: .6;
+  text-decoration: line-through;
+}
+.todo-done {
+  opacity: .65;
+}
+
+.todo-done .todo-title {
+  text-decoration: line-through;
+}
+
+.todo-overdue {
+  border-left: 6px solid #dc3545;
+}

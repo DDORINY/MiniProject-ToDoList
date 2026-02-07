@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+  <div class="col-12 col-md-6 col-lg-4">
+
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+
+        <h4 class="mb-3 text-center">로그인</h4>
+
+        <form method="post" action="{{ url_for('auth.login') }}">
+
+          <!-- 아이디 -->
+          <div class="mb-3">
+            <label class="form-label small text-muted">아이디 (uid)</label>
+            <input name="uid"
+                   class="form-control"
+                   placeholder="아이디 입력"
+                   required>
+          </div>
+
+          <!-- 비밀번호 -->
+          <div class="mb-3">
+            <label class="form-label small text-muted">비밀번호</label>
+            <input type="password"
+                   name="pw"
+                   class="form-control"
+                   placeholder="비밀번호 입력"
+                   required>
+          </div>
+
+          <!-- 버튼 -->
+          <button class="btn btn-primary w-100">
+            로그인
+          </button>
+
+        </form>
+
+        <!-- 하단 링크 -->
+        <div class="text-center mt-3 small">
+          계정이 없으신가요?
+          <a href="{{ url_for('auth.signup') }}">
+            회원가입
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

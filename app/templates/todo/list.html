@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% block title %}ToDo{% endblock %}
+
+{% block content %}
+
+<div class="row g-4">
+  <!-- LEFT: Add + Filter/Search -->
+  <div class="col-12 col-lg-4">
+    <div class="card shadow-sm mb-3">
+      <div class="card-body">
+        <h5 class="mb-3">할 일 추가</h5>
+
+        <form method="post" action="{{ url_for('todo.add') }}">
+          <div class="mb-2">
+            <label class="form-label small text-muted">제목</label>
+            <input name="title" class="form-control" placeholder="예) 오늘 할일은!!" required>
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label small text-muted">메모</label>
+            <textarea name="memo" class="form-control" rows="3" placeholder="메모(선택)"></textarea>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small text-muted">마감일</label>
+            <input type="date" name="due_date" class="form-control">
+          </div>
+
+          <button class="btn btn-primary w-100">추가</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h6 class="mb-2">필터 / 검색</h6>
+
+        <!-- Filter buttons -->
+        <div class="btn-group w-100 mb-2" role="group">
+          <a class="btn btn-sm {% if filter_done=='all' %}btn-primary{% else %}btn-outline-primary{% endif %}"
+             href="{{ url_for('todo.list_page', filter='all', q=q or '') }}">전체</a>
+          <a class="btn btn-sm {% if filter_done=='todo' %}btn-primary{% else %}btn-outline-primary{% endif %}"
+             href="{{ url_for('todo.list_page', filter='todo', q=q or '') }}">미완료</a>
+          <a class="btn btn-sm {% if filter_done=='done' %}btn-primary{% else %}btn-outline-primary{% endif %}"
+             href="{{ url_for('todo.list_page', filter='done', q=q or '') }}">완료</a>
+        </div>
+
+        <!-- Search -->
+        <form method="get" action="{{ url_for('todo.list_page') }}" class="d-flex gap-2">
+          <input type="hidden" name="filter" value="{{ filter_done or 'all' }}">
+          <input name="q" class="form-control form-control-sm" placeholder="제목/메모 검색" value="{{ q or '' }}">
+          <button class="btn btn-sm btn-outline-secondary">검색</button>
+        </form>
+
+        <div class="small text-muted mt-2">
+          * 완료 항목은 아래로 정렬됩니다. (DB 쿼리 ORDER BY)
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: List -->
+  <div class="col-12 col-lg-8">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <h5 class="mb-0">목록</h5>
+      <div class="small text-muted">총 {{ todos|length }}개</div>
+    </div>
+
+    {% for t in todos %}
+      {% set overdue = (t.due_date and (t.due_date|string) < (today|string) and not t.is_done) %}
+
+      <div class="card shadow-sm mb-2
+                  {% if t.is_done %} todo-done {% endif %}
+                  {% if overdue %} todo-overdue {% endif %}">
+        <div class="card-body d-flex justify-content-between align-items-start gap-3">
+
+          <div class="flex-grow-1">
+            <div class="d-flex align-items-center gap-2">
+              <div class="fw-semibold todo-title">{{ t.title }}</div>
+
+              {% if overdue %}
+                <span class="badge text-bg-danger">DUE</span>
+              {% endif %}
+
+              {% if t.is_done %}
+                <span class="badge text-bg-secondary">DONE</span>
+              {% endif %}
+            </div>
+
+            {% if t.memo %}
+              <div class="text-muted small mt-1">{{ t.memo }}</div>
+            {% endif %}
+
+            {% if t.due_date %}
+              <div class="small text-secondary mt-1">마감: {{ t.due_date }}</div>
+            {% endif %}
+          </div>
+
+          <div class="d-flex gap-2">
+            <!-- toggle -->
+            <form method="post" action="{{ url_for('todo.toggle', todo_id=t.id) }}">
+              <button class="btn btn-sm btn-outline-success">완료</button>
+            </form>
+
+            <!-- edit -->
+            <a class="btn btn-sm btn-outline-primary"
+               href="{{ url_for('todo.edit_page', todo_id=t.id) }}">수정</a>
+
+            <!-- delete -->
+            <form method="post" action="{{ url_for('todo.delete', todo_id=t.id) }}">
+              <button class="btn btn-sm btn-outline-danger">삭제</button>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    {% else %}
+      <div class="text-muted">할 일이 없습니다.</div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

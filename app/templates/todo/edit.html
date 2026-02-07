@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}수정{% endblock %}
+
+{% block content %}
+
+<div class="card shadow-sm">
+  <div class="card-body">
+    <h5 class="card-title">할 일 수정</h5>
+
+    <form method="post"
+          action="{{ url_for('todo.edit', todo_id=todo.id) }}">
+
+      <div class="mb-2">
+        <label class="form-label">제목</label>
+        <input name="title" class="form-control"
+               value="{{ todo.title }}" required>
+      </div>
+
+      <div class="mb-2">
+        <label class="form-label">메모</label>
+        <textarea name="memo" class="form-control" rows="3">{{ todo.memo }}</textarea>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">마감일</label>
+        <input type="date" name="due_date"
+               value="{{ todo.due_date }}"
+               class="form-control">
+      </div>
+
+      <div class="d-flex gap-2">
+        <button class="btn btn-primary">저장</button>
+        <a href="{{ url_for('todo.list_page') }}"
+           class="btn btn-secondary">취소</a>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+{% endblock %}
