@@ -3,6 +3,36 @@
 Flask + MySQL 기반 ToDo List 웹 애플리케이션 미니 프로젝트입니다.  
 레이어드 아키텍처(Repository–Service–Route) 구조와 Blueprint 분리를 적용하여  
 실무형 백엔드 구조를 연습하는 것을 목표로 했습니다.
+## Screenshots (Click to expand)
+`클릭하면 이미지를 볼 수 있습니다.`
+<details>
+<summary> Dashboard</summary>
+
+![Dashboard](docs/images/dashboard.png)
+
+</details>
+
+<details>
+<summary> List</summary>
+
+![List](docs/images/list.png)
+
+</details>
+
+<details>
+<summary> Login</summary>
+
+![Login](docs/images/login.png)
+
+</details>
+
+<details>
+<summary> Signup</summary>
+
+![Signup](docs/images/signup.png)
+
+</details>
+
 
 ---
 
